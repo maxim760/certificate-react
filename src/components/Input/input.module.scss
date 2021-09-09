@@ -1,6 +1,4 @@
 @import '../../assets/styles/variables';
-$padding-x: 12px;
-$padding-y: 8px;
 .label {
   display: flex;
   width: 100%;
@@ -21,23 +19,7 @@ $padding-y: 8px;
   text-align: left;
   padding-left: $padding-x;
 }
-.input {
-  color: inherit;
-  outline: none;
-  padding: $padding-y $padding-x;
-  border-radius: 6px;
-  border: 1px solid grey;
-  &:focus {
-    border-color: $primary;
-  }
-  .label.error & {
-    border-color: $error;
-  }
-  &::placeholder {
-    color: inherit;
-    font-weight: 400;
-  }
-}
+
 .helperText {
   padding-left: $padding-x;
   text-align: left;

@@ -8,7 +8,7 @@ export const Input = React.forwardRef(
       <label className={cl({ [styles.label]: true, [styles.error]: error })}>
         <span className={styles.title}>{label}</span>
         <input
-          className={styles.input}
+          className="input"
           placeholder={placeholder || 'Введите...'}
           ref={ref}
           type="text"

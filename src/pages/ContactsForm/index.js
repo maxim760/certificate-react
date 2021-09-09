@@ -1,15 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import NumberFormat from 'react-number-format'
-
-import { Card, Button, Loader, Input } from '../../components'
+import { Card, Button, Loader, Input, Checkbox } from '../../components'
 import { normalizeUser } from '../../utils'
 import { useAsync } from '../../hooks'
 import { useAppContext } from '../../contexts/AppContext'
 import { userApi } from '../../services/userApi'
-
+import SuggestAddress from './SuggestAddress'
 import styles from './form.module.scss'
 import { useRedirectsFromForm } from './useRedirectsFromForm'
 
@@ -25,6 +24,21 @@ const schema = yup.object().shape({
     .test('phone correctly', 'Вы ввели некорректный телефон', (value) => {
       return value.length === 10 // (999) 999 99-99
     }),
+  withDelivery: yup.boolean(),
+  address: yup
+    .string()
+    .nullable()
+    .when('withDelivery', (withDelivery, schema) => {
+      return schema.test({
+        test: (value) => {
+          if (!withDelivery) {
+            return true
+          }
+          return !!value
+        },
+        message: 'Адрес доставки должен быть указан',
+      })
+    }),
 })
 
 export const ContactsForm = () => {
@@ -36,17 +50,23 @@ export const ContactsForm = () => {
     handleSubmit,
     register,
     control,
+    watch,
   } = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: yupResolver(schema),
     defaultValues: {
       phone: '',
       email: '',
       name: '',
+      withDelivery: false,
+      address: '',
     },
   })
+  const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => onChange(v.value)
+  const onQueryChange = (onChange) => (v) => onChange(v.value)
   const onSubmitForm = (userData) => {
+    console.log(userData)
     const user = normalizeUser(userData)
     const { Id, TableName, PrimaryKey, Price, Summa } = certificate
     setUser(user)
@@ -59,6 +79,11 @@ export const ContactsForm = () => {
       Summa,
     })
   }
+
+  // const [query, setQuery] = useState('')
+  // const onChangeQuery = (data) => {
+  //   setQuery(data.value)
+  // }
 
   return (
     <form
@@ -99,6 +124,27 @@ export const ContactsForm = () => {
           {...register('email')}
           error={errors.email?.message}
         />
+        <Checkbox
+          label="Вам требуется доставка?"
+          {...register('withDelivery')}
+        />
+        {withDelivery && (
+          <Controller
+            render={({ field: { onChange, value } }) => {
+              return (
+                <SuggestAddress
+                  error={errors.address?.message}
+                  label="Адрес"
+                  placeholder="Введите адрес"
+                  onChange={onQueryChange(onChange)}
+                  query={value}
+                />
+              )
+            }}
+            name="address"
+            control={control}
+          />
+        )}
       </Card>
 
       {status.isError && <Card>Ошибка. Попробуйте ещё.</Card>}
@@ -109,7 +155,7 @@ export const ContactsForm = () => {
         </Button>
         <Button
           type="submit"
-          disabled={!isValid || status.isLoading}
+          disabled={status.isLoading}
           className={styles.loadingBtn}
         >
           {status.isLoading ? <Loader size="small" /> : 'Оплатить'}

@@ -4,7 +4,7 @@
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin-top: 100px;
   flex-direction: column;
   & > * + * {
     margin-top: 40px;
@@ -23,4 +23,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.suggestInput {
+  width: 100%;
+}
+
+.checkboxLabel {
+  margin-left: 10px;
+}
+
+.checkbox {
+  cursor: pointer;
+  align-self: flex-start;
+  margin-left: 0;
+  & input {
+    width: 1rem;
+    height: 1rem;
+  }
 }
