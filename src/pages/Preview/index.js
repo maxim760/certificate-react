@@ -14,7 +14,7 @@ export const PreviewPage = () => {
     }
   }, [])
   const onClickNextPage = () => {
-    window.parent.postMessage('mobile start parent', '*')
+    window.parent.postMessage({ type: 'sycret', status: 'start' }, '*')
     setIsStarted(true)
     history.push(ROUTES.MAIN)
   }

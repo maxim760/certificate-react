@@ -5,8 +5,6 @@ import { App } from './App'
 import { AppContextProvider } from './contexts/AppContext'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-window.onmessage = (e) => console.log('msg', e)
-
 ReactDOM.render(
   <React.StrictMode>
     <Router>

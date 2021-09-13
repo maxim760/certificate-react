@@ -41,6 +41,7 @@ export const AppContextProvider = ({ children }) => {
     setUser(null)
     setCertificate(null)
     setIsStarted(false)
+    window.parent.postMessage({ type: 'sycret', status: 'finish' }, '*')
     clearData()
   }, [])
   return (
