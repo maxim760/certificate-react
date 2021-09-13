@@ -1,5 +1,7 @@
 import { AppRouter } from './components'
+import { useAppContext } from './contexts/AppContext'
 
 export const App = () => {
-  return <AppRouter />
+  const { isMobile } = useAppContext()
+  return <AppRouter isMobile={isMobile} />
 }

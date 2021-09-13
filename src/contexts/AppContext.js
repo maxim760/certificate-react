@@ -1,10 +1,21 @@
-import { createContext, useCallback, useContext, useState } from 'react'
+import React from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { useHistory } from 'react-router-dom'
 import { useAsync } from '../hooks/useAsync'
+import { useWindowSize } from '../hooks/useWindowSize'
 import { certificateApi } from '../services/certificateApi'
+import { ROUTES } from '../utils'
 
 const AppContext = createContext(null)
 
 export const AppContextProvider = ({ children }) => {
+  const history = useHistory()
   const {
     data,
     refetch,
@@ -13,11 +24,23 @@ export const AppContextProvider = ({ children }) => {
   } = useAsync({
     fn: certificateApi.getAll,
   })
+  const { width } = useWindowSize()
+  const [isMobile, setIsMobile] = useState(width < 600)
+  useEffect(() => {
+    setIsMobile(width < 600)
+  }, [width])
+  useEffect(() => {
+    if (!isStarted && isMobile) {
+      history.push(ROUTES.PREVIEW)
+    }
+  }, [isMobile])
+  const [isStarted, setIsStarted] = useState(false)
   const [certificate, setCertificate] = useState(null)
   const [user, setUser] = useState(null)
   const clear = useCallback(() => {
     setUser(null)
     setCertificate(null)
+    setIsStarted(false)
     clearData()
   }, [])
   return (
@@ -31,6 +54,9 @@ export const AppContextProvider = ({ children }) => {
         user,
         setUser,
         clear,
+        isMobile,
+        isStarted,
+        setIsStarted,
       }}
     >
       {children}

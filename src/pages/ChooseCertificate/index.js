@@ -10,7 +10,21 @@ import styles from './chooseCertificate.module.scss'
 
 export const ChooseCertificate = () => {
   const history = useHistory()
-  const { status, refetch, data, certificate, setCertificate } = useAppContext()
+  const {
+    status,
+    refetch,
+    data,
+    certificate,
+    setCertificate,
+    isMobile,
+    isStarted,
+    setIsStarted,
+  } = useAppContext()
+  useEffect(() => {
+    if (isMobile && !isStarted) {
+      history.push(ROUTES.PREVIEW)
+    }
+  }, [])
   useEffect(() => {
     if (!certificate) {
       refetch()
@@ -18,6 +32,7 @@ export const ChooseCertificate = () => {
   }, [])
   const selectProps = useSelectOptions({ data, certificate, setCertificate })
   const onClickConfirm = () => {
+    setIsStarted(true)
     history.push(ROUTES.FORM)
   }
   return (
