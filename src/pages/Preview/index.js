@@ -14,7 +14,7 @@ export const PreviewPage = () => {
     }
   }, [])
   const onClickNextPage = () => {
-    window.postMessage('mobile start')
+    window.postMessage('mobile start', '*')
     setIsStarted(true)
     history.push(ROUTES.MAIN)
   }
