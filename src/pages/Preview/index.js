@@ -14,10 +14,7 @@ export const PreviewPage = () => {
     }
   }, [])
   const onClickNextPage = () => {
-    console.log('before')
-    window.postMessage('mobile start', '*')
     window.parent.postMessage('mobile start parent', '*')
-    console.log('after')
     setIsStarted(true)
     history.push(ROUTES.MAIN)
   }
