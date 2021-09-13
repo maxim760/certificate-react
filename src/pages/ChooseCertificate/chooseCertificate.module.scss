@@ -6,12 +6,17 @@
 .wrapper {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   align-items: center;
-  padding: 20px 10px 50px;
+  padding: 20px 10px 20px;
   justify-content: space-between;
-  height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
   .loading {
     justify-content: flex-start;
+  }
+  & > * + * {
+    margin-top: 20px;
   }
 }
 .loader {
