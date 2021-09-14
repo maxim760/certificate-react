@@ -20,7 +20,7 @@ export const PreviewPage = () => {
   }
   return (
     <div className={styles.wrapper}>
-      <Button onClick={onClickNextPage}>Перейти</Button>
+      <Button onClick={onClickNextPage}>Оформить сертификат</Button>
     </div>
   )
 }
