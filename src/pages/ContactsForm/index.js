@@ -158,7 +158,7 @@ export const ContactsForm = () => {
           disabled={status.isLoading}
           className={styles.loadingBtn}
         >
-          {status.isLoading ? <Loader size="small" /> : 'Оплатить'}
+          {status.isLoading ? <Loader size="small" /> : 'Перейти к оплате'}
         </Button>
       </div>
     </form>
