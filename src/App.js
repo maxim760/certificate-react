@@ -1,7 +1,12 @@
 import { AppRouter } from './components'
 import { useAppContext } from './contexts/AppContext'
+import { MainTemplate } from './Template/MainTemplate'
 
 export const App = () => {
   const { isMobile } = useAppContext()
-  return <AppRouter isMobile={isMobile} />
+  return (
+    <MainTemplate>
+      <AppRouter isMobile={isMobile} />
+    </MainTemplate>
+  )
 }

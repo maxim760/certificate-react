@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+  height: 100vh;
+  display: flex;
+}
+
+.content {
+  margin: auto 0;
+  max-height: 700px;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.img {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
