@@ -69,12 +69,10 @@ export const ContactsForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => {
-    alert('change: ' + JSON.stringify(v))
     onChange(v.value)
   }
-  const onPastePhone = (onChange) => (event) => {
-    alert('paste')
-    const paste = event.clipboardData.getData('text').replace(/[^\d\+]/g, '')
+  const onPastePhone = (onChange, getText) => (event) => {
+    const paste = getText(event)
     const starts = [
       { prefix: '+7', remove: 2 },
       { prefix: '89', remove: 1 },
@@ -151,28 +149,13 @@ export const ContactsForm = () => {
                 label="Телефон"
                 placeholder="+7 (999) 999-99-99"
                 onBlur={onBlur}
-                onEnded={(...args) => alert('ENDED')}
-                onChangeCapture={(e) =>
-                  alert('CHANGE CAPTURE' + e?.currentTarget?.value)
-                }
-                onChange={() => alert('CHANGE')}
-                onBeforeInputCapture={() => alert('capture before input')}
-                onBeforeInput={() => alert('before input')}
-                onInput={() => alert('INPIUT')}
-                onInputCapture={() => alert('INPIUT capture')}
-                onClick={() => alert('click')}
-                onClickCapture={() => alert('click capture')}
-                onKeyUp={() => alert('key UP')}
-                onKeyUpCapture={() => alert('key UP capture')}
-                // onPaste={onPastePhone(onChange)}
-                onPaste={(...args) => alert('PASTE')}
-                onPasteCapture={(...args) => alert('PASTE cpature')}
+                onChangeCapture={(e) => {
+                  alert('CHANGE CAPTURE' + e?.currentTarget?.value, e.type)
+                }}
+                onPaste={onPastePhone(onChange, (event) =>
+                  event.clipboardData.getData('text').replace(/[^\d\+]/g, ''),
+                )}
                 onValueChange={onPhoneChange(onChange)}
-                onDoubleClick={() => alert('db click')}
-                onGotPointerCapture={() => alert('GOT POINTER')}
-                onSeeked={() => alert('seeked')}
-                onRateChange={() => alert('ratechange')}
-                onPointerDown={() => alert('pointer down')}
                 allowEmptyFormatting={true}
                 value={value}
                 type="tel"
