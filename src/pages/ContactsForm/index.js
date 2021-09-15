@@ -166,7 +166,6 @@ export const ContactsForm = () => {
                 onBeforeInput={() => alert(' input')}
                 onClick={() => alert('click')}
                 onKeyUp={() => alert('key UP')}
-                onSelect={(...args) => alert('SELECT')}
                 // onPaste={onPastePhone(onChange)}
                 onPaste={(...args) => alert('PASTE')}
                 onValueChange={onPhoneChange(onChange)}
