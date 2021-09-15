@@ -19,7 +19,6 @@ const SuggestAddress = ({ query, onChange, error, onBlur }) => {
       token={token}
       customStyles={customStyles}
       query={query}
-      debounce={200}
       count={10}
       allowClear={true}
       onChange={onChange}
