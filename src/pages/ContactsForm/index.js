@@ -69,9 +69,11 @@ export const ContactsForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => {
+    alert('change')
     onChange(v.value)
   }
   const onPastePhone = (onChange) => (event) => {
+    alert('paste')
     const paste = event.clipboardData.getData('text').replace(/[^\d\+]/g, '')
     const starts = [
       { prefix: '+7', remove: 2 },
