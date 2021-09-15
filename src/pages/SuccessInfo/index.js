@@ -20,7 +20,7 @@ export const SuccessInfo = () => {
   }
   return (
     <div className={styles.wrapper}>
-      <h2>Оплата</h2>
+      <h2>Идёт оплата</h2>
       <Button onClick={goToMain}>На главную</Button>
     </div>
   )

@@ -1,14 +1,16 @@
 import axios from 'axios'
-const API_KEY = process.env.REACT_APP_API_KEY
+import { ApiKey } from '../utils'
 
 const $host = axios.create({
   baseURL: 'https://sycret.ru/service/api/api',
 })
 
 $host.interceptors.request.use((config) => {
-  config.params = {
-    ...config.params,
-    ApiKey: API_KEY,
+  const apikey = ApiKey.get()
+  if (config.method === 'post') {
+    config.data = JSON.stringify({ ...JSON.parse(config.data), ApiKey: apikey })
+  } else {
+    config.params = { ...config.params, ApiKey: apikey }
   }
   return config
 })

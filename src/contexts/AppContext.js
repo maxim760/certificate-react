@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom'
 import { useAsync } from '../hooks/useAsync'
 import { useWindowSize } from '../hooks/useWindowSize'
 import { certificateApi } from '../services/certificateApi'
-import { ROUTES } from '../utils'
+import { ApiKey, ROUTES } from '../utils'
 
 const AppContext = createContext(null)
 
@@ -26,9 +26,31 @@ export const AppContextProvider = ({ children }) => {
   })
   const { width } = useWindowSize()
   const [isMobile, setIsMobile] = useState(width < 600)
+  const [clientId, setClientId] = useState(null)
+  const [robokassa, setRobokassa] = useState(null)
+  const [delivery, setDelivery] = useState(null)
+  const [options, setOptions] = useState({})
+  const setNewOptions = (payload) => {
+    setOptions((prev) => {
+      const copy = { ...prev }
+      payload.forEach(({ OPTIONNUMBER, OPTIONVALUE }) => {
+        if (OPTIONNUMBER === '1') copy.background = OPTIONVALUE
+        if (OPTIONNUMBER === '2') copy.color = OPTIONVALUE
+        if (OPTIONNUMBER === '3')
+          copy.theme = !!Number(OPTIONVALUE) ? 'light' : 'dark'
+      })
+      return copy
+    })
+  }
   useEffect(() => {
     setIsMobile(width < 600)
   }, [width])
+  useEffect(() => {
+    const apikey = ApiKey.get()
+    if (apikey) {
+      ApiKey.set(apikey)
+    }
+  }, [])
   useEffect(() => {
     if (!isStarted && isMobile) {
       history.push(ROUTES.PREVIEW)
@@ -58,6 +80,14 @@ export const AppContextProvider = ({ children }) => {
         isMobile,
         isStarted,
         setIsStarted,
+        options,
+        setOptions: setNewOptions,
+        delivery,
+        setDelivery,
+        clientId,
+        setClientId,
+        robokassa,
+        setRobokassa,
       }}
     >
       {children}

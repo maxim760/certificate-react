@@ -1,12 +1,10 @@
 import { AppRouter } from './components'
 import { useAppContext } from './contexts/AppContext'
-import { MainTemplate } from './Template/MainTemplate'
+import { withCheckApikey } from './hocs/withCheckApiKey'
 
-export const App = () => {
+const App = () => {
   const { isMobile } = useAppContext()
-  return (
-    <MainTemplate>
-      <AppRouter isMobile={isMobile} />
-    </MainTemplate>
-  )
+  return <AppRouter isMobile={isMobile} />
 }
+
+export default withCheckApikey(App)

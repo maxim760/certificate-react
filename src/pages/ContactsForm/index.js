@@ -11,6 +11,9 @@ import { userApi } from '../../services/userApi'
 import SuggestAddress from './SuggestAddress'
 import styles from './form.module.scss'
 import { useRedirectsFromForm } from './useRedirectsFromForm'
+import { getSumma } from '../../utils/getSumma'
+import { fiscalization } from '../../robokassa'
+import { request } from '../../services/request'
 
 const schema = yup.object().shape({
   name: yup.string().required('Имя должно быть заполнено'),
@@ -42,11 +45,12 @@ const schema = yup.object().shape({
 })
 
 export const ContactsForm = () => {
-  const { certificate, setUser } = useAppContext()
+  const { certificate, setUser, delivery, clientId, robokassa } =
+    useAppContext()
   const { refetch, status, data } = useAsync({ fn: userApi.sendUser })
   const { goBack } = useRedirectsFromForm({ data, certificate })
   const {
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     register,
     control,
@@ -62,28 +66,52 @@ export const ContactsForm = () => {
       address: '',
     },
   })
+  const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => onChange(v.value)
   const onQueryChange = (onChange) => (v) => onChange(v.value)
+
   const onSubmitForm = (userData) => {
-    console.log(userData)
+    setIsLoading(true)
     const user = normalizeUser(userData)
-    const { Id, TableName, PrimaryKey, Price, Summa } = certificate
+    console.log({ delivery })
+    const { Id, TableName, PrimaryKey, Price, Summa, Name } = certificate
     setUser(user)
-    refetch({
-      ...user,
-      Id,
+    console.log({ user })
+    const summa = getSumma(delivery, Price, user.DeliveryAddress)
+    request('OSCreatePreOrder', {
+      CRMClientId: clientId,
+      IsTestMode: robokassa.ROBOISTEST,
+      ItemId: Id,
+      ItemName: Name,
       TableName,
       PrimaryKey,
       Price,
-      Summa,
+      Summa: summa,
+      FName: user.FullName,
+      Phone: user.Phone,
+      Email: user.Email,
+      UseDelivery: delivery.SHOPUSEDELIVERY,
+      DeliveryAddress: user.DeliveryAddress,
     })
-  }
+      .then((data) => {
+        if (!data[0]) throw new Error('Ошибка метода OSCreatePreOrder')
+        if (data[0].RESULT !== '0') throw new Error(data[0].RESULTDESCRIPTION)
 
-  // const [query, setQuery] = useState('')
-  // const onChangeQuery = (data) => {
-  //   setQuery(data.value)
-  // }
+        fiscalization(robokassa, data[0].ID, summa)
+      })
+      .then(() => {
+        refetch({
+          ...user,
+          Id,
+          TableName,
+          PrimaryKey,
+          Price,
+          Summa,
+        })
+      })
+      .finally(() => setIsLoading(false))
+  }
 
   return (
     <form
@@ -124,10 +152,12 @@ export const ContactsForm = () => {
           {...register('email')}
           error={errors.email?.message}
         />
-        <Checkbox
-          label="Вам требуется доставка?"
-          {...register('withDelivery')}
-        />
+        {!!Number(delivery.SHOPUSEDELIVERY) && (
+          <Checkbox
+            label="Вам требуется доставка?"
+            {...register('withDelivery')}
+          />
+        )}
         {withDelivery && (
           <Controller
             render={({ field: { onChange, value } }) => {
@@ -155,10 +185,14 @@ export const ContactsForm = () => {
         </Button>
         <Button
           type="submit"
-          disabled={status.isLoading}
+          disabled={status.isLoading || isLoading}
           className={styles.loadingBtn}
         >
-          {status.isLoading ? <Loader size="small" /> : 'Перейти к оплате'}
+          {status.isLoading || isLoading ? (
+            <Loader size="small" />
+          ) : (
+            'Перейти к оплате'
+          )}
         </Button>
       </div>
     </form>

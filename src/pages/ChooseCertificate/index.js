@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Select from 'react-select'
 import { useHistory } from 'react-router-dom'
-import { Button, Loader, CertificateCard } from '../../components'
+import { Button, Loader, CertificateCard, Card } from '../../components'
 import { useAppContext } from '../../contexts/AppContext'
 import { cl, ROUTES } from '../../utils'
 import { useSelectOptions } from './useSelectOptions'
@@ -53,8 +53,10 @@ export const ChooseCertificate = () => {
       {!!certificate && <CertificateCard certificate={certificate} />}
       {!!certificate && <Button onClick={onClickConfirm}>Оформить</Button>}
       {status.isError && (
-        <div>
-          <h3>Ошибка: {status.message}</h3>
+        <div className={styles.errorBlock}>
+          <Card>
+            <h3>Ошибка: {status.message}</h3>
+          </Card>
           <Button onClick={refetch}>Попробуйте еще</Button>
         </div>
       )}

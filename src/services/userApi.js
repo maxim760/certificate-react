@@ -9,7 +9,6 @@ export const userApi = {
         params: {
           MethodName: 'OSSale',
           PaymentTypeId: 2,
-          UseDelivery: 0,
           ...payload,
         },
       })
@@ -18,7 +17,6 @@ export const userApi = {
       }
       return data
     } catch (error) {
-      console.log('in getAll, error:', error)
       throw new Error('Ошибка при оформлении платежа')
     }
   },

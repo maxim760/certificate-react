@@ -9,7 +9,11 @@ export const certificateApi = {
       })
       return normalizeCertificates(data.data)
     } catch (error) {
-      throw new Error('Ошибка при получении сертификатов')
+      console.log(error.response)
+      throw new Error(
+        error?.response?.data?.resultdescription ||
+          'Ошибка при получении сертификата',
+      )
     }
   },
 }
