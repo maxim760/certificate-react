@@ -152,12 +152,27 @@ export const ContactsForm = () => {
                 placeholder="+7 (999) 999-99-99"
                 onBlur={onBlur}
                 onBeforeInput={(...args) =>
-                  alert('BEFORE INPUT' + args.join(','))
+                  alert(
+                    'BEFORE INPUT' +
+                      args.map((ar) => JSON.stringify(ar)).join(','),
+                  )
                 }
-                onEnded={(...args) => alert('ENDED' + args.join(','))}
-                onSelect={(...args) => alert('SELECT' + args.join(','))}
+                onEnded={(...args) =>
+                  alert(
+                    'ENDED' + args.map((ar) => JSON.stringify(ar)).join(','),
+                  )
+                }
+                onSelect={(...args) =>
+                  alert(
+                    'SELECT' + args.map((ar) => JSON.stringify(ar)).join(','),
+                  )
+                }
                 // onPaste={onPastePhone(onChange)}
-                onPaste={(...args) => alert('PASTE' + args.join(','))}
+                onPaste={(...args) =>
+                  alert(
+                    'PASTE' + args.map((ar) => JSON.stringify(ar)).join(','),
+                  )
+                }
                 onValueChange={onPhoneChange(onChange)}
                 allowEmptyFormatting={true}
                 value={value}
