@@ -153,26 +153,14 @@ export const ContactsForm = () => {
                 onBlur={onBlur}
                 onBeforeInput={(...args) =>
                   alert(
-                    'BEFORE INPUT' +
-                      args.map((ar) => JSON.stringify(ar)).join(','),
+                    'BEFORE INPUT', //+
+                    // args.map((ar) => JSON.stringify(ar)).join(','),
                   )
                 }
-                onEnded={(...args) =>
-                  alert(
-                    'ENDED' + args.map((ar) => JSON.stringify(ar)).join(','),
-                  )
-                }
-                onSelect={(...args) =>
-                  alert(
-                    'SELECT' + args.map((ar) => JSON.stringify(ar)).join(','),
-                  )
-                }
+                onEnded={(...args) => alert('ENDED')}
+                onSelect={(...args) => alert('SELECT')}
                 // onPaste={onPastePhone(onChange)}
-                onPaste={(...args) =>
-                  alert(
-                    'PASTE' + args.map((ar) => JSON.stringify(ar)).join(','),
-                  )
-                }
+                onPaste={(...args) => alert('PASTE')}
                 onValueChange={onPhoneChange(onChange)}
                 allowEmptyFormatting={true}
                 value={value}
