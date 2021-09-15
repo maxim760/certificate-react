@@ -151,8 +151,14 @@ export const ContactsForm = () => {
                 label="Телефон"
                 placeholder="+7 (999) 999-99-99"
                 onBlur={onBlur}
+                onBeforeInput={(...args) =>
+                  alert('BEFORE INPUT' + args.join(','))
+                }
+                onEnded={(...args) => alert('ENDED' + args.join(','))}
+                onSelect={(...args) => alert('SELECT' + args.join(','))}
+                // onPaste={onPastePhone(onChange)}
                 onPaste={onPastePhone(onChange)}
-                onValueChange={onPhoneChange(onChange)}
+                onValueChange={(...args) => alert('PASTE' + args.join(','))}
                 allowEmptyFormatting={true}
                 value={value}
                 type="tel"
