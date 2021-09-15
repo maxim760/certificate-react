@@ -7,6 +7,7 @@ import { cl, ROUTES } from '../../utils'
 import { useSelectOptions } from './useSelectOptions'
 
 import styles from './chooseCertificate.module.scss'
+import { PostMessage } from '../../utils/message'
 
 export const ChooseCertificate = () => {
   const history = useHistory()
@@ -23,6 +24,8 @@ export const ChooseCertificate = () => {
   useEffect(() => {
     if (isMobile && !isStarted) {
       history.push(ROUTES.PREVIEW)
+    } else {
+      PostMessage.start()
     }
   }, [])
   useEffect(() => {

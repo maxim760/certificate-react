@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Button } from '../../components'
 import { useAppContext } from '../../contexts/AppContext'
 import { ROUTES } from '../../utils'
+import { PostMessage } from '../../utils/message'
 import styles from './preview.module.scss'
 
 export const PreviewPage = () => {
@@ -14,7 +15,7 @@ export const PreviewPage = () => {
     }
   }, [])
   const onClickNextPage = () => {
-    window.parent.postMessage({ type: 'sycret', status: 'start' }, '*')
+    PostMessage.start()
     setIsStarted(true)
     history.push(ROUTES.MAIN)
   }

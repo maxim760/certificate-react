@@ -89,10 +89,8 @@ export const ContactsForm = () => {
   const onSubmitForm = (userData) => {
     setIsLoading(true)
     const user = normalizeUser(userData)
-    console.log({ delivery })
     const { Id, TableName, PrimaryKey, Price, Summa, Name } = certificate
     setUser(user)
-    console.log({ user })
     const summa = getSumma(delivery, Price, user.DeliveryAddress)
     request('OSCreatePreOrder', {
       CRMClientId: clientId,
