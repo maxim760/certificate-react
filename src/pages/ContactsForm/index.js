@@ -156,7 +156,6 @@ export const ContactsForm = () => {
                 format="+7 (###) ###-##-##"
                 mask="_"
                 label="Телефон"
-                isAllowed={() => isDirty}
                 placeholder="+7 (999) 999-99-99"
                 onBlur={onBlur}
                 onPaste={onPastePhone(onChange)}
