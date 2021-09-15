@@ -87,9 +87,12 @@ export const ContactsForm = () => {
       return
     }
     const phoneStart = getStartPhone(value)
+    alert('cha phonestart')
+    alert(JSON.stringify(phoneStart))
     if (!phoneStart) {
       return
     }
+    alert('res' + value.substring(phoneStart.remove))
     onChange(value.substring(phoneStart.remove))
   }
   const onPastePhone = (onChange) => (event) => {
