@@ -64,6 +64,7 @@ export const ContactsForm = () => {
     register,
     control,
     watch,
+    setValue,
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
@@ -78,23 +79,9 @@ export const ContactsForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => {
-    alert('onPhoneChange' + JSON.stringify(v))
     onChange(v.value)
   }
-  const onChangePhoneCapture = (onChange) => (e) => {
-    const value = e.currentTarget.value
-    if (!RegExp(/^\d+$/).test(value) || !value) {
-      return
-    }
-    const phoneStart = getStartPhone(value)
-    alert(JSON.stringify(phoneStart))
-    if (!phoneStart) {
-      return
-    }
-    alert('res' + value.substring(phoneStart.remove))
-    e.preventDefault()
-    onChange(value.substring(phoneStart.remove))
-  }
+
   const onPastePhone = (onChange) => (event) => {
     const paste = event.clipboardData.getData('text').replace(/[^\d\+]/g, '')
     const start = getStartPhone(paste)
@@ -160,15 +147,18 @@ export const ContactsForm = () => {
           error={errors.name?.message}
         />
         <Controller
-          render={({ field: { onChange, value, onBlur } }) => {
+          render={({
+            field: { onChange, value, onBlur },
+            fieldState: { isDirty },
+          }) => {
             return (
               <NumberFormat
                 format="+7 (###) ###-##-##"
                 mask="_"
                 label="Телефон"
+                isAllowed={() => isDirty}
                 placeholder="+7 (999) 999-99-99"
                 onBlur={onBlur}
-                onChangeCapture={onChangePhoneCapture(onChange)}
                 onPaste={onPastePhone(onChange)}
                 onValueChange={onPhoneChange(onChange)}
                 allowEmptyFormatting={true}
