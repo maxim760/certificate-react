@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button } from '../../components'
+import { Button, Card } from '../../components'
 import { useAppContext } from '../../contexts/AppContext'
 import { ROUTES } from '../../utils'
 
@@ -20,8 +20,10 @@ export const SuccessInfo = () => {
   }
   return (
     <div className={styles.wrapper}>
-      <h2>Идёт оплата</h2>
-      <Button onClick={goToMain}>На главную</Button>
+      <Card withShadow>
+        <h2>Идёт оплата</h2>
+      </Card>
+      <Button onClick={goToMain}>Вернуться на главную</Button>
     </div>
   )
 }

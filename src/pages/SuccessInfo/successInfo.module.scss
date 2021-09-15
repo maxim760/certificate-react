@@ -3,8 +3,9 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 20px;
   height: 100%;
   & > * + * {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 }

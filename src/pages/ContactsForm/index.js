@@ -69,6 +69,21 @@ export const ContactsForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => onChange(v.value)
+  const onPastePhone = (onChange) => (event) => {
+    const paste = event.clipboardData.getData('text').replace(/[^\d\+]/g, '')
+    const starts = [
+      { prefix: '+7', remove: 2 },
+      { prefix: '89', remove: 1 },
+      { prefix: '88', remove: 1 },
+    ]
+    const start = starts.find((start) => paste.startsWith(start.prefix))
+    if (!start) {
+      return
+    }
+    const phoneNum = paste.substring(start.remove)
+    event.preventDefault()
+    onChange(phoneNum)
+  }
   const onQueryChange = (onChange) => (v) => onChange(v.value)
 
   const onSubmitForm = (userData) => {
@@ -134,6 +149,7 @@ export const ContactsForm = () => {
                 mask="_"
                 label="Телефон"
                 placeholder="+7 (999) 999-99-99"
+                onPaste={onPastePhone(onChange)}
                 onValueChange={onPhoneChange(onChange)}
                 allowEmptyFormatting={true}
                 value={value}

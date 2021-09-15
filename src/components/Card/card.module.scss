@@ -12,3 +12,7 @@
     margin-top: 5px;
   }
 }
+.shadow {
+  box-shadow: 4px 4px 10px rgba(#000, 0.2), -4px -4px 10px rgba(#000, 0.2),
+    -4px 4px 10px rgba(#000, 0.2), 4px -4px 10px rgba(#000, 0.2);
+}
