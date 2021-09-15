@@ -12,7 +12,6 @@ $host.interceptors.request.use((config) => {
   } else {
     config.params = { ...config.params, ApiKey: apikey }
   }
-  console.log(config, 'AFTER')
   return config
 })
 

@@ -25,7 +25,6 @@ const themeDark = {
 }
 
 const createTheme = (props) => {
-  console.log({ props })
   // todo добавить темную тему
   const theme = props.theme === 'light' ? themeLight : themeLight
   return {

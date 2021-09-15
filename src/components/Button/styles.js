@@ -2,7 +2,6 @@ import { css, useTheme } from '@emotion/react'
 
 export const useStyles = (props) => {
   const theme = useTheme()
-  console.log(theme)
   return {
     btn: css`
       background-color: ${theme.background};

@@ -6,7 +6,6 @@ import { useStyles } from './styles'
 
 export const Card = ({ children, className, withShadow }) => {
   const styles = useStyles()
-  console.log({ className, stylescard: styles.card })
   return (
     <div
       className={className}

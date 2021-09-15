@@ -15,6 +15,15 @@ import { getSumma } from '../../utils/getSumma'
 import { fiscalization } from '../../robokassa'
 import { request } from '../../services/request'
 
+const getStartPhone = (paste) => {
+  const starts = [
+    { prefix: '+7', remove: 2 },
+    { prefix: '89', remove: 1 },
+    { prefix: '88', remove: 1 },
+  ]
+  const start = starts.find((start) => paste.startsWith(start.prefix))
+}
+
 const schema = yup.object().shape({
   name: yup.string().required('Имя должно быть заполнено'),
   email: yup
@@ -71,14 +80,20 @@ export const ContactsForm = () => {
   const onPhoneChange = (onChange) => (v) => {
     onChange(v.value)
   }
-  const onPastePhone = (onChange, getText) => (event) => {
-    const paste = getText(event)
-    const starts = [
-      { prefix: '+7', remove: 2 },
-      { prefix: '89', remove: 1 },
-      { prefix: '88', remove: 1 },
-    ]
-    const start = starts.find((start) => paste.startsWith(start.prefix))
+  const onChangePhoneCapture = (onChange) => (e) => {
+    const value = e.currentTarget.value
+    if (!/^\d+$/.test(value) || !value) {
+      return
+    }
+    const phoneStart = getStartPhone(value)
+    if (!phoneStart) {
+      return
+    }
+    onChange(value.substring(phoneStart.remove))
+  }
+  const onPastePhone = (onChange) => (event) => {
+    const paste = event.clipboardData.getData('text').replace(/[^\d\+]/g, '')
+    const start = getStartPhone(paste)
     if (!start) {
       return
     }
@@ -149,12 +164,8 @@ export const ContactsForm = () => {
                 label="Телефон"
                 placeholder="+7 (999) 999-99-99"
                 onBlur={onBlur}
-                onChangeCapture={(e) => {
-                  alert('CHANGE CAPTURE' + e?.currentTarget?.value + e.type)
-                }}
-                onPaste={onPastePhone(onChange, (event) =>
-                  event.clipboardData.getData('text').replace(/[^\d\+]/g, ''),
-                )}
+                onChangeCapture={onChangePhoneCapture(onChange)}
+                onPaste={onPastePhone(onChange)}
                 onValueChange={onPhoneChange(onChange)}
                 allowEmptyFormatting={true}
                 value={value}

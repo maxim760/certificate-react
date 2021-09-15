@@ -19,7 +19,6 @@ export const MainTemplate = ({ children }) => {
     const blur = WidgetData.getBlur()
     return photo ? blur || 0 : blur || 3
   }, [])
-  console.log({ photo, blurSize })
   return (
     <div className={styles.wrapper} style={getWrapperStyles(blurSize)}>
       <div className={styles.content}>{children}</div>
