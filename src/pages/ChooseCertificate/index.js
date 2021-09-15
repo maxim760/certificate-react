@@ -22,7 +22,6 @@ export const ChooseCertificate = () => {
     isMobile,
     isStarted,
     setIsStarted,
-    options,
   } = useAppContext()
   const customStyles = {
     control: (base, state) => ({
@@ -36,6 +35,7 @@ export const ChooseCertificate = () => {
     if (isMobile && !isStarted) {
       history.push(ROUTES.PREVIEW)
     } else {
+      setIsStarted(true)
       PostMessage.start()
     }
   }, [])
@@ -46,7 +46,6 @@ export const ChooseCertificate = () => {
   }, [])
   const selectProps = useSelectOptions({ data, certificate, setCertificate })
   const onClickConfirm = () => {
-    setIsStarted(true)
     history.push(ROUTES.FORM)
   }
   return (

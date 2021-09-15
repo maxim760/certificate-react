@@ -12,6 +12,8 @@ export const PreviewPage = () => {
   useEffect(() => {
     if (!isMobile) {
       history.push(ROUTES.MAIN)
+    } else {
+      PostMessage.finish()
     }
   }, [])
   const onClickNextPage = () => {
