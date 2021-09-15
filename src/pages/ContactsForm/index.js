@@ -69,7 +69,7 @@ export const ContactsForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => {
-    alert('change')
+    alert('change', JSON.stringify(v))
     onChange(v.value)
   }
   const onPastePhone = (onChange) => (event) => {
