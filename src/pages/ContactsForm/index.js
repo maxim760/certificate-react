@@ -21,7 +21,7 @@ const getStartPhone = (paste) => {
     { prefix: '89', remove: 1 },
     { prefix: '88', remove: 1 },
   ]
-  const start = starts.find((start) => paste.startsWith(start.prefix))
+  return starts.find((start) => paste.startsWith(start.prefix))
 }
 
 const schema = yup.object().shape({
@@ -82,7 +82,7 @@ export const ContactsForm = () => {
   }
   const onChangePhoneCapture = (onChange) => (e) => {
     const value = e.currentTarget.value
-    alert(value)
+    console.log(value, 'capture')
     if (!RegExp(/^\d+$/).test(value) || !value) {
       return
     }
@@ -93,13 +93,16 @@ export const ContactsForm = () => {
     onChange(value.substring(phoneStart.remove))
   }
   const onPastePhone = (onChange) => (event) => {
+    console.log('on paste')
     const paste = event.clipboardData.getData('text').replace(/[^\d\+]/g, '')
     const start = getStartPhone(paste)
+    console.log('PASTE', { paste, start })
     if (!start) {
       return
     }
     const phoneNum = paste.substring(start.remove)
     event.preventDefault()
+    console.log(phoneNum)
     onChange(phoneNum)
   }
   const onQueryChange = (onChange) => (v) => onChange(v.value)
