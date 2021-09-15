@@ -10,8 +10,8 @@ const getImgStyles = (blur) => ({
 })
 
 const getWrapperStyles = (blur) => ({
-  marginLeft: `-${blur}px`,
-  width: `calc(100% + ${blur * 2}px)`,
+  // marginLeft: `-${blur}px`,
+  // width: `calc(100% + ${blur * 2}px)`,
 })
 
 export const MainTemplate = ({ children }) => {
