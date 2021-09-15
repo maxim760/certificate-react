@@ -12,7 +12,7 @@ const customStyles = {
   },
 }
 
-const SuggestAddress = ({ query, onChange, error }) => {
+const SuggestAddress = ({ query, onChange, error, onBlur }) => {
   return (
     <ReactDadataBox
       showNote={false}
@@ -26,7 +26,9 @@ const SuggestAddress = ({ query, onChange, error }) => {
       autocomplete={true}
       className={styles.suggestInput}
       placeholder="Введите адрес"
-      customInput={(props) => <Input error={error} label="Адрес" {...props} />}
+      customInput={(props) => (
+        <Input error={error} label="Адрес" {...props} onBlur={onBlur} />
+      )}
       type="address"
     />
   )

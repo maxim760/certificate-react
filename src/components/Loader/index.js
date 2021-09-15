@@ -1,10 +1,11 @@
 import React from 'react'
-import { cl } from '../../utils/toClassName'
-import styles from './loader.module.scss'
-
+import { useStyles } from './styles'
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react'
 export const Loader = ({ size = '', className = '', center = false }) => {
+  const styles = useStyles()
   const Component = () => (
-    <div className={cl([styles.spinner, styles[size], className])}>
+    <div className={className} css={[styles.spinner, styles[size]]}>
       <div></div>
       <div></div>
       <div></div>
@@ -21,7 +22,7 @@ export const Loader = ({ size = '', className = '', center = false }) => {
   )
   if (center) {
     return (
-      <div className={styles.wrapper}>
+      <div css={styles.wrapper}>
         <Component />
       </div>
     )

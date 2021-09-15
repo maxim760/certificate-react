@@ -68,7 +68,9 @@ export const ContactsForm = () => {
   })
   const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
-  const onPhoneChange = (onChange) => (v) => onChange(v.value)
+  const onPhoneChange = (onChange) => (v) => {
+    onChange(v.value)
+  }
   const onPastePhone = (onChange) => (event) => {
     const paste = event.clipboardData.getData('text').replace(/[^\d\+]/g, '')
     const starts = [
@@ -125,7 +127,6 @@ export const ContactsForm = () => {
       })
       .finally(() => setIsLoading(false))
   }
-
   return (
     <form
       className={styles.form}
@@ -140,13 +141,14 @@ export const ContactsForm = () => {
           error={errors.name?.message}
         />
         <Controller
-          render={({ field: { onChange, value } }) => {
+          render={({ field: { onChange, value, onBlur } }) => {
             return (
               <NumberFormat
                 format="+7 (###) ###-##-##"
                 mask="_"
                 label="Телефон"
                 placeholder="+7 (999) 999-99-99"
+                onBlur={onBlur}
                 onPaste={onPastePhone(onChange)}
                 onValueChange={onPhoneChange(onChange)}
                 allowEmptyFormatting={true}
@@ -174,10 +176,11 @@ export const ContactsForm = () => {
         )}
         {withDelivery && (
           <Controller
-            render={({ field: { onChange, value } }) => {
+            render={({ field: { onChange, value, onBlur } }) => {
               return (
                 <SuggestAddress
                   error={errors.address?.message}
+                  onBlur={onBlur}
                   label="Адрес"
                   placeholder="Введите адрес"
                   onChange={onQueryChange(onChange)}

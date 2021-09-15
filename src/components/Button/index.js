@@ -1,10 +1,12 @@
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from '@emotion/react'
 import React from 'react'
-import { cl } from '../../utils'
-import styles from './button.module.scss'
+import { useStyles } from './styles'
 
 export const Button = ({ children, className = '', ...props }) => {
+  const styles = useStyles()
   return (
-    <button className={cl([className, styles.btn])} {...props}>
+    <button css={styles.btn} className={className} {...props}>
       {children}
     </button>
   )

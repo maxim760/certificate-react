@@ -1,20 +1,32 @@
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from '@emotion/react'
 import React from 'react'
-import { cl } from '../../utils'
+import { useStyles } from './styles'
 
-import styles from './input.module.scss'
 export const Input = React.forwardRef(
   ({ placeholder, label, error, ...props }, ref) => {
+    const styles = useStyles()
+    const { className, onBlur, ...inputProps } = props
     return (
-      <label className={cl({ [styles.label]: true, [styles.error]: error })}>
-        <span className={styles.title}>{label}</span>
+      <label
+        css={css`
+          ${[styles.label]};
+          ${error ? [styles.error] : ''};
+        `}
+      >
+        <span css={styles.title}>{label}</span>
         <input
-          className="input"
+          css={css`
+            ${[styles.input]};
+            ${className}
+          `}
           placeholder={placeholder || 'Введите...'}
           ref={ref}
           type="text"
-          {...props}
+          onBlur={onBlur}
+          {...inputProps}
         />
-        {!!error && <span className={styles.helperText}>{error}</span>}
+        {!!error && <span css={styles.helperText}>{error}</span>}
       </label>
     )
   },

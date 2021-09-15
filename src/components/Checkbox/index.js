@@ -1,11 +1,15 @@
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from '@emotion/react'
 import React from 'react'
+import { useStyles } from './styles'
 
 export const Checkbox = React.forwardRef(({ label, value, ...props }, ref) => {
+  const styles = useStyles()
   return (
-    <label className="checkbox">
-      <span className="checkbox__input">
+    <label css={styles.checkbox}>
+      <span css={styles.input}>
         <input type="checkbox" {...props} ref={ref} />
-        <span className="checkbox__control">
+        <span css={styles.control}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -21,7 +25,7 @@ export const Checkbox = React.forwardRef(({ label, value, ...props }, ref) => {
           </svg>
         </span>
       </span>
-      <span className="radio__label">{label}</span>
+      <span css={styles.radio}>{label}</span>
     </label>
   )
 })

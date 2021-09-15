@@ -1,88 +1,14 @@
 @import './base.scss';
 @import './variables.scss';
 
-:root {
-  --color: rebeccapurple;
-  --disabled: #959495;
-}
-
 .input,
 .react-dadata__input {
-  color: inherit !important;
-  outline: none !important;
-  padding: $padding-y $padding-x !important;
-  border-radius: 6px !important;
-  border: 1px solid grey !important;
-  .label.error & {
-    border-color: $error !important;
-  }
-  &:focus-within {
-    border-color: $primary !important;
-  }
-  &::placeholder {
-    color: rgba(black, 0.7) !important;
-    font-weight: 400 !important;
-  }
 }
 .react-dadata__input {
   padding-right: 30px !important;
 }
 .react-dadata__icon-clear {
   bottom: -11px;
-}
-
-.checkbox {
-  display: grid;
-  grid-template-columns: min-content auto;
-  grid-gap: 0.3em;
-  font-size: 1rem;
-  color: var(--color);
-
-  &--disabled {
-    color: var(--disabled);
-  }
-}
-
-.checkbox__control {
-  display: inline-grid;
-  width: 1em;
-  height: 1em;
-  border-radius: 0.25em;
-  border: 0.1em solid currentColor;
-
-  svg {
-    transition: transform 0.1s ease-in 25ms;
-    transform: scale(0);
-    transform-origin: bottom left;
-  }
-}
-
-.checkbox__input {
-  display: grid;
-  grid-template-areas: 'checkbox';
-  margin-top: 3px;
-
-  > * {
-    grid-area: checkbox;
-  }
-
-  input {
-    opacity: 0;
-    width: 1em;
-    height: 1em;
-
-    &:focus + .checkbox__control {
-      box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em currentColor;
-    }
-
-    &:checked + .checkbox__control svg {
-      transform: scale(1);
-    }
-
-    &:disabled + .checkbox__control {
-      color: var(--disabled);
-    }
-  }
 }
 
 .center {
@@ -92,4 +18,12 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

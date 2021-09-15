@@ -8,8 +8,10 @@ import { useSelectOptions } from './useSelectOptions'
 
 import styles from './chooseCertificate.module.scss'
 import { PostMessage } from '../../utils/message'
+import { useTheme } from '@emotion/react'
 
 export const ChooseCertificate = () => {
+  const theme = useTheme()
   const history = useHistory()
   const {
     status,
@@ -20,7 +22,16 @@ export const ChooseCertificate = () => {
     isMobile,
     isStarted,
     setIsStarted,
+    options,
   } = useAppContext()
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      boxShadow: state.isFocued ? theme.primary + ' 0 0 0 2px' : 'none',
+      borderColor: theme.primary + ' !important',
+      borderWidth: '2px',
+    }),
+  }
   useEffect(() => {
     if (isMobile && !isStarted) {
       history.push(ROUTES.PREVIEW)
@@ -46,6 +57,7 @@ export const ChooseCertificate = () => {
           [styles.loading]: status.isLoading,
         })}
         placeholder="Выберите сертификат"
+        styles={customStyles}
         isSearchable
         {...selectProps}
         isLoading={status.isLoading}

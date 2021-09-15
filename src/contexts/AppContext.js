@@ -11,6 +11,7 @@ import { useAsync } from '../hooks/useAsync'
 import { useWindowSize } from '../hooks/useWindowSize'
 import { certificateApi } from '../services/certificateApi'
 import { ApiKey, ROUTES } from '../utils'
+import { PostMessage } from '../utils/message'
 
 const AppContext = createContext(null)
 
@@ -63,7 +64,7 @@ export const AppContextProvider = ({ children }) => {
     setUser(null)
     setCertificate(null)
     setIsStarted(false)
-    window.parent.postMessage({ type: 'sycret', status: 'finish' }, '*')
+    PostMessage.finish()
     clearData()
   }, [])
   return (

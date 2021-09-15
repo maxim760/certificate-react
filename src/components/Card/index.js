@@ -1,15 +1,18 @@
 import React from 'react'
 import { cl } from '../../utils'
-import styles from './card.module.scss'
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from '@emotion/react'
+import { useStyles } from './styles'
 
 export const Card = ({ children, className, withShadow }) => {
+  const styles = useStyles()
   return (
     <div
-      className={cl({
-        [styles.card]: true,
-        className: true,
-        [styles.shadow]: withShadow,
-      })}
+      css={css`
+        ${[styles.card]};
+        ${className};
+        ${withShadow ? [styles.shadow] : ''}
+      `}
     >
       {children}
     </div>

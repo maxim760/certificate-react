@@ -15,7 +15,6 @@ export const PreviewPage = () => {
     }
   }, [])
   const onClickNextPage = () => {
-    PostMessage.start()
     setIsStarted(true)
     history.push(ROUTES.MAIN)
   }
