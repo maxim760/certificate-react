@@ -69,11 +69,9 @@ export const ContactsForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => {
-    alert('change: ' + JSON.stringify(v))
     onChange(v.value)
   }
   const onPastePhone = (onChange) => (event) => {
-    alert('paste')
     const paste = event.clipboardData.getData('text').replace(/[^\d\+]/g, '')
     const starts = [
       { prefix: '+7', remove: 2 },
@@ -151,23 +149,8 @@ export const ContactsForm = () => {
                 label="Телефон"
                 placeholder="+7 (999) 999-99-99"
                 onBlur={onBlur}
-                onBeforeInput={(...args) =>
-                  alert(
-                    'BEFORE INPUT', //+
-                    // args.map((ar) => JSON.stringify(ar)).join(','),
-                  )
-                }
-                onEnded={(...args) => alert('ENDED')}
-                onChangeCapture={(e) =>
-                  alert(e.currentTarget.value + '|' + JSON.stringify(e.target))
-                }
-                onChange={() => alert('CHANGE')}
-                onBeforeInputCapture={() => alert('capture input')}
-                onBeforeInput={() => alert(' input')}
-                onClick={() => alert('click')}
-                onKeyUp={() => alert('key UP')}
-                // onPaste={onPastePhone(onChange)}
-                onPaste={(...args) => alert('PASTE')}
+                onChangeCapture={(e) => console.log(e)}
+                onPaste={onPastePhone(onChange)}
                 onValueChange={onPhoneChange(onChange)}
                 allowEmptyFormatting={true}
                 value={value}
