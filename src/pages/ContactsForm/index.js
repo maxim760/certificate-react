@@ -168,7 +168,7 @@ export const ContactsForm = () => {
           {...register('email')}
           error={errors.email?.message}
         />
-        {!!Number(delivery.SHOPUSEDELIVERY) && (
+        {(!!Number(delivery.SHOPUSEDELIVERY) || true) && (
           <Checkbox
             label="Вам требуется доставка?"
             {...register('withDelivery')}
