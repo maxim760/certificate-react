@@ -27,8 +27,6 @@ export const useStyles = (props) => {
     control,
     input: css`
       display: grid;
-      grid-template-areas: 'checkbox';
-      margin-top: 3px;
       & > * {
         grid-area: checkbox;
       }
