@@ -78,17 +78,15 @@ export const ContactsForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => {
-    console.log('onPhoneChange' + JSON.stringify(v))
+    alert('onPhoneChange' + JSON.stringify(v))
     onChange(v.value)
   }
   const onChangePhoneCapture = (onChange) => (e) => {
     const value = e.currentTarget.value
-    alert(value)
     if (!RegExp(/^\d+$/).test(value) || !value) {
       return
     }
     const phoneStart = getStartPhone(value)
-    alert('cha phonestart')
     alert(JSON.stringify(phoneStart))
     if (!phoneStart) {
       return
