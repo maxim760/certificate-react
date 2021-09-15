@@ -82,7 +82,8 @@ export const ContactsForm = () => {
   }
   const onChangePhoneCapture = (onChange) => (e) => {
     const value = e.currentTarget.value
-    if (!/^\d+$/.test(value) || !value) {
+    alert(value)
+    if (!RegExp(/^\d+$/).test(value) || !value) {
       return
     }
     const phoneStart = getStartPhone(value)
