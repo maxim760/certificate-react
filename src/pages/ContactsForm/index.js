@@ -93,16 +93,13 @@ export const ContactsForm = () => {
     onChange(value.substring(phoneStart.remove))
   }
   const onPastePhone = (onChange) => (event) => {
-    console.log('on paste')
     const paste = event.clipboardData.getData('text').replace(/[^\d\+]/g, '')
     const start = getStartPhone(paste)
-    console.log('PASTE', { paste, start })
     if (!start) {
       return
     }
     const phoneNum = paste.substring(start.remove)
     event.preventDefault()
-    console.log(phoneNum)
     onChange(phoneNum)
   }
   const onQueryChange = (onChange) => (v) => onChange(v.value)
