@@ -1,3 +1,7 @@
 export const parseQueryParams = (url) => {
-  return Object.fromEntries(new URL(url).searchParams)
+  const data = Object.fromEntries(new URL(url).searchParams)
+  if (Object.keys(data).length === 0) {
+    return null
+  }
+  return data
 }

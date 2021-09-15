@@ -1,5 +1,7 @@
 .card {
+  overflow: auto;
   & > * {
     text-align: center;
+    word-break: break-word;
   }
 }

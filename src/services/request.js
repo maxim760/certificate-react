@@ -5,6 +5,7 @@ export const request = async (methodName, params = {}) => {
     methodName,
     ...params,
   }
+  console.log({ body })
   try {
     const { data } = await $host.post('', JSON.stringify(body))
     if (!data || data.result !== 0) {

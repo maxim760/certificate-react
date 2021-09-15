@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Card, Loader, Button } from '../components'
 import { useAppContext } from '../contexts/AppContext'
 import { request } from '../services/request'
-import { ApiKey } from '../utils'
+import { WidgetData } from '../utils'
 import styles from './checkApiKey.module.scss'
 
 export const withCheckApikey = (Component) => {
@@ -14,7 +14,7 @@ export const withCheckApikey = (Component) => {
     const checkApiKey = useCallback(() => {
       setIsLoading(true)
       request('MDBGetClCompanyId', {
-        CLApiKey: ApiKey.get(),
+        CLApiKey: WidgetData.getApiKey(),
       })
         .then((data) => {
           if (!data[0]) throw new Error('Ошибка метода MDBGetClCompanyId')
@@ -60,7 +60,7 @@ export const withCheckApikey = (Component) => {
       checkApiKey()
     }, [])
     if (isLoading) return <Loader center />
-    if (!isValid)
+    if (!isValid && !isLoading)
       return (
         <div className="center">
           <Card>У вас нет апи ключа или апи ключ неверный</Card>

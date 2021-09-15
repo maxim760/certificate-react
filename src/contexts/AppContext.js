@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom'
 import { useAsync } from '../hooks/useAsync'
 import { useWindowSize } from '../hooks/useWindowSize'
 import { certificateApi } from '../services/certificateApi'
-import { ApiKey, ROUTES } from '../utils'
+import { ApiKey, ROUTES, WidgetData } from '../utils'
 import { PostMessage } from '../utils/message'
 
 const AppContext = createContext(null)
@@ -47,10 +47,7 @@ export const AppContextProvider = ({ children }) => {
     setIsMobile(width < 600)
   }, [width])
   useEffect(() => {
-    const apikey = ApiKey.get()
-    if (apikey) {
-      ApiKey.set(apikey)
-    }
+    WidgetData.save()
   }, [])
   useEffect(() => {
     if (!isStarted && isMobile) {

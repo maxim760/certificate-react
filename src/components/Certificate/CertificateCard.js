@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { cl } from '../../utils'
 import { Card } from '../Card'
 import styles from './certificate.module.scss'
