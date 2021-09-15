@@ -78,6 +78,7 @@ export const ContactsForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const withDelivery = !!watch('withDelivery')
   const onPhoneChange = (onChange) => (v) => {
+    console.log('onPhoneChange' + JSON.stringify(v))
     onChange(v.value)
   }
   const onChangePhoneCapture = (onChange) => (e) => {
@@ -93,6 +94,7 @@ export const ContactsForm = () => {
       return
     }
     alert('res' + value.substring(phoneStart.remove))
+    e.preventDefault()
     onChange(value.substring(phoneStart.remove))
   }
   const onPastePhone = (onChange) => (event) => {
