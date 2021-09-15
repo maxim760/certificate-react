@@ -157,8 +157,8 @@ export const ContactsForm = () => {
                 onEnded={(...args) => alert('ENDED' + args.join(','))}
                 onSelect={(...args) => alert('SELECT' + args.join(','))}
                 // onPaste={onPastePhone(onChange)}
-                onPaste={onPastePhone(onChange)}
-                onValueChange={(...args) => alert('PASTE' + args.join(','))}
+                onPaste={(...args) => alert('PASTE' + args.join(','))}
+                onValueChange={onPhoneChange(onChange)}
                 allowEmptyFormatting={true}
                 value={value}
                 type="tel"
