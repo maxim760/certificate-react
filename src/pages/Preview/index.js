@@ -10,10 +10,9 @@ export const PreviewPage = () => {
   const history = useHistory()
   const { setIsStarted, isMobile } = useAppContext()
   useEffect(() => {
+    alert(isMobile + window.innerWidth)
     if (!isMobile) {
       history.push(ROUTES.MAIN)
-    } else {
-      PostMessage.finish()
     }
   }, [])
   const onClickNextPage = () => {
