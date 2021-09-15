@@ -158,7 +158,9 @@ export const ContactsForm = () => {
                   )
                 }
                 onEnded={(...args) => alert('ENDED')}
-                onChangeCapture={() => alert('CHANGE CAPTURE')}
+                onChangeCapture={(e) =>
+                  alert(e.currentTarget.value + '|' + JSON.stringify(e.target))
+                }
                 onChange={() => alert('CHANGE')}
                 onBeforeInputCapture={() => alert('capture input')}
                 onBeforeInput={() => alert(' input')}
