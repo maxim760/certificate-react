@@ -33,6 +33,7 @@ export const ChooseCertificate = () => {
     }),
   }
   useEffect(() => {
+    alert('start', isMobile, window.innerWidth)
     PostMessage.start()
     if (isMobile && !isStarted) {
       history.push(ROUTES.PREVIEW)
