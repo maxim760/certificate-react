@@ -10,7 +10,7 @@ export const useStyles = (props) => {
       padding: 10px 20px;
       border: 2px solid ${theme.primary};
       color: ${theme.primary};
-      filter: brightness(0.96);
+      filter: brightness(0.92);
       transition: all 0.2s ease-in;
       font-weight: 600;
       transition-property: box-shadow, color, background-color, transform;
