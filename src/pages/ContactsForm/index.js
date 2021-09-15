@@ -158,6 +158,9 @@ export const ContactsForm = () => {
                   )
                 }
                 onEnded={(...args) => alert('ENDED')}
+                onChangeCapture={() => console.log('CHANGE CAPTURE')}
+                onBeforeInputCapture={() => console.log('capture input')}
+                onKeyUp={() => console.log('key UP')}
                 onSelect={(...args) => alert('SELECT')}
                 // onPaste={onPastePhone(onChange)}
                 onPaste={(...args) => alert('PASTE')}
