@@ -150,7 +150,7 @@ export const ContactsForm = () => {
                 placeholder="+7 (999) 999-99-99"
                 onBlur={onBlur}
                 onChangeCapture={(e) => {
-                  alert('CHANGE CAPTURE' + e?.currentTarget?.value, e.type)
+                  alert('CHANGE CAPTURE' + e?.currentTarget?.value + e.type)
                 }}
                 onPaste={onPastePhone(onChange, (event) =>
                   event.clipboardData.getData('text').replace(/[^\d\+]/g, ''),
